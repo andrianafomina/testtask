@@ -15,3 +15,4 @@ COPY . .
 
 CMD ["python3", "app-es.py"]
 
+EXPOSE 5000

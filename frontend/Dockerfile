@@ -1,15 +1,19 @@
 FROM nginx:alpine
 
-WORKDIR /frontend
+# Удаляем дефолтную конфигурацию
+RUN rm /etc/nginx/conf.d/default.conf
 
-COPY ./500.html .
+# Копируем кастомную конфигурацию
+COPY nginx.conf /etc/nginx/conf.d/
 
-COPY . .
+# Создаем директорию для кастомных страниц ошибок
+RUN mkdir -p /usr/share/nginx/errors
 
-ENTRYPOINT [”nginx”]
+# Копируем страницу 500 ошибки
+COPY 500.html /usr/share/nginx/errors/
 
-ENV HOST localhost:8080
-
+# Открываем порт 80
 EXPOSE 80
 
-CMD [ "nginx", "-g", "daemon off;" ]
+# Запускаем nginx
+CMD ["nginx", "-g", "daemon off;"]

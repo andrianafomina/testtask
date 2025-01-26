@@ -2,11 +2,10 @@ FROM nginx:alpine
 
 # Удаляем дефолтную конфигурацию
 RUN rm /etc/nginx/conf.d/default.conf
-
 # Копируем кастомную конфигурацию
 COPY nginx.conf /etc/nginx/conf.d/
 
-# Создаем директорию для кастомных страниц ошибок
+# создаем директорию для ошибки
 RUN mkdir -p /usr/share/nginx/errors
 
 # Копируем страницу 500 ошибки
